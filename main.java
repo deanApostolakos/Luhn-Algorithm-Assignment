@@ -37,6 +37,9 @@ class CustomerSystem{
                 city = enterCustomerInfo(city);
                 postalCode = enterCustomerInfo(postalCode);
                 creditCard = enterCustomerInfo(creditCard);
+                
+                // Empty line for spacing between the menus
+                System.out.println("");
 
             }
             else if (userInput.equals(generateCustomerOption)) {
@@ -44,7 +47,15 @@ class CustomerSystem{
                 generateCustomerDataFile();
             }
             else{
-                System.out.println("Please type in a valid option (A number from 1-9)");
+                // Added extra condition to check if the user inputted 9.
+                // If they input 9 it exits the loop and ends the program,
+                // where without it it would say 9 isn't valid and then exit
+                // This is just a small thing
+                if (userInput.equals(exitCondition)){
+                }
+                else{
+                    System.out.println("Please type in a valid option (A number from 1-9)");
+                }
             }
 
         } while (!userInput.equals(exitCondition));         // Exits once the user types 
