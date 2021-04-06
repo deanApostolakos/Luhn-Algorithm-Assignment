@@ -149,4 +149,7 @@ class CustomerSystem{
     /*******************************************************************
     *       ADDITIONAL METHODS MAY BE ADDED BELOW IF NECESSARY         *
     *******************************************************************/
+
+    public static void generateCustomerIDValue(){
+    }
 }
