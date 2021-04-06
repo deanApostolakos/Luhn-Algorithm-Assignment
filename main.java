@@ -1,7 +1,5 @@
-// Throughout this project, the use of data structures are not permitted such as methods like .split and .toCharArray
-
-
 import java.util.Scanner;
+import java.util.*;
 // More packages may be imported in the space below
 
 class CustomerSystem{
@@ -37,6 +35,9 @@ class CustomerSystem{
                 city = enterCustomerInfo(city);
                 postalCode = enterCustomerInfo(postalCode);
                 creditCard = enterCustomerInfo(creditCard);
+              
+                boolean creditCardValidate = false;
+                creditCardValidate = validateCreditCard(creditCard);
                 
                 // Empty line for spacing between the menus
                 System.out.println("");
@@ -133,13 +134,16 @@ class CustomerSystem{
     * The method may not nesessarily be a void return type
     * This method may also be broken down further depending on your algorithm
     */
-    public static void validateCreditCard(){
+    public static boolean validateCreditCard(String creditCard){
+    	int len = creditCard.length();
+        for (int i = (len - 1); i >= 0; i--) {
+            System.out.print(creditCard.charAt(i));
+        }
+        
+    	
+        
+        return true;
     }
-    /*
-    * This method may be edited to achieve the task however you like.
-    * The method may not nesessarily be a void return type
-    * This method may also be broken down further depending on your algorithm
-    */
     public static void generateCustomerDataFile(){
     }
     /*******************************************************************
