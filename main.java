@@ -1,9 +1,12 @@
+
 import java.util.Scanner;
-import java.util.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 // More packages may be imported in the space below
 
 class CustomerSystem{
-    public static void main(String[] args){
+    public static void main(String[] args) throws FileNotFoundException{
         // Please do not edit any of these variables
         Scanner reader = new Scanner(System.in);
         String userInput, enterCustomerOption, generateCustomerOption, exitCondition;
@@ -12,6 +15,11 @@ class CustomerSystem{
         exitCondition = "9";
 
         // More variables for the main may be declared in the space below
+        String firstName = "firstName";
+        String lastName = "lastName";
+        String city = "city"; 
+        String postalCode = "postalCode";
+        String creditCard = "creditCard";
 
 
         do{
@@ -22,12 +30,12 @@ class CustomerSystem{
                 // Only the line below may be editted based on the parameter list and how you design the method return
 		        // Any necessary variables may be added to this if section, but nowhere else in the code
                 
-                // Assign variables for all inputs of the enter customer info method
-                String firstName = "firstName";
-                String lastName = "lastName";
-                String city = "city"; 
-                String postalCode = "postalCode";
-                String creditCard = "creditCard";
+                // Assigned variables for all inputs of the enter customer info method
+                //String firstName = "firstName";
+                //String lastName = "lastName";
+                //String city = "city"; 
+                //String postalCode = "postalCode";
+                //String creditCard = "creditCard";
                 
                 // Call method for each individual input
                 firstName = enterCustomerInfo(firstName);
@@ -45,7 +53,8 @@ class CustomerSystem{
             }
             else if (userInput.equals(generateCustomerOption)) {
                 // Only the line below may be editted based on the parameter list and how you design the method return
-                generateCustomerDataFile();
+                generateCustomerDataFile(firstName, lastName, city, postalCode, creditCard);
+                System.out.println("");
             }
             else{
                 // Added extra condition to check if the user inputted 9.
@@ -58,6 +67,7 @@ class CustomerSystem{
                     System.out.println("Please type in a valid option (A number from 1-9)");
                 }
             }
+            
 
         } while (!userInput.equals(exitCondition));         // Exits once the user types 
         
@@ -144,12 +154,62 @@ class CustomerSystem{
         
         return true;
     }
-    public static void generateCustomerDataFile(){
-    }
+
+
+    public static void generateCustomerDataFile(String firstNameOutput, String lastNameOutput, String cityOutput, String postalCodeOutput, String creditCardOutput) throws FileNotFoundException{
+    
+        Scanner reader = new Scanner(System.in);
+    
+        System.out.println("");
+        System.out.println("Confirm Correct Information: ");
+        System.out.println("");
+        System.out.println("First Name  : " + firstNameOutput);
+        System.out.println("Last Name   : " + lastNameOutput);
+        System.out.println("City        : " + cityOutput);
+        System.out.println("Postal Code : " + postalCodeOutput);
+        System.out.println("Credit Card : " + creditCardOutput);
+        System.out.println("");
+        System.out.print("y/n: ");
+        String infoConfirmation = reader.nextLine();
+
+        if (infoConfirmation.equals("y")){
+
+            System.out.println("");
+            System.out.println("What type of file are you outputting? ");
+            System.out.println(".txt     or    .csv");
+            System.out.print("-");
+            String fileType = reader.nextLine();
+        
+            System.out.println("");
+            System.out.print("Enter File Name: ");
+            String fileName = reader.nextLine();
+            System.out.print("");
+        
+            //int userIDValue = generateCustomerIDValue(userIDValue);
+            
+            File outFile = new File(fileName + fileType);
+            PrintWriter out = new PrintWriter(outFile);
+        
+            // Prints values to file
+            out.println(firstNameOutput+"|"+lastNameOutput+"|"+cityOutput+"|"+postalCodeOutput+"|"+postalCodeOutput+"|"+creditCardOutput);
+        
+            
+            System.out.println("Done");
+            out.close(); // Important: don't forget to close!
+            reader.close();
+        }
+
+        else if (infoConfirmation.equals("n")){
+            //Takes user back to input print menu
+            System.out.println("Information is now deemed incorrect.");
+            System.out.println("Please re-input customer information");
+            System.out.println("");
+        }
+
+      }
     /*******************************************************************
     *       ADDITIONAL METHODS MAY BE ADDED BELOW IF NECESSARY         *
     *******************************************************************/
-
     public static void generateCustomerIDValue(){
     }
 }
