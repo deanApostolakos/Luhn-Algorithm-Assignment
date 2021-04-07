@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -240,32 +239,41 @@ class CustomerSystem{
                 System.out.print("");
                 
                 String fileName = enterFileName + fileType;
+
+                
                 //int userIDValue = generateCustomerIDValue(userIDValue);
                 
                 File outFile = new File(fileName);
-                PrintWriter out = new PrintWriter(outFile);
+                if (outFile.exists()){
+                    System.out.println("This file already exists, please choose a different file name.");
+                }
+                else{
+                    PrintWriter out = new PrintWriter(outFile);
+                    
+                    // Prints info header
+                    out.println("Customer ID|First Name|Last Name|City|Postal Code|Credit Card|");
+                    // Prints values to file
+                    out.println(userIDValue+"|"+firstNameOutput+"|"+lastNameOutput+"|"+cityOutput+"|"+postalCodeOutput+"|"+creditCardOutput+"*");
                 
-                // Prints info header
-                out.println("Customer ID|First Name|Last Name|City|Postal Code|Credit Card|");
-                // Prints values to file
-                out.println(userIDValue+"|"+firstNameOutput+"|"+lastNameOutput+"|"+cityOutput+"|"+postalCodeOutput+"|"+creditCardOutput+"*");
-            
-                System.out.print("");
-                System.out.println("Done");
-                System.out.print("");
-                out.close();
-                reader.close();
+                    System.out.print("");
+                    System.out.println("Done");
+                    System.out.print("");
+                    out.close();
+                    reader.close();
+                }
             }
             else if (newFileChoice.equals("n")){
                 System.out.println("");
                 System.out.println("Add to existing file");
-                System.out.println("Choose existing file: ");
-                String fileName = "csvtrial9.csv";
-                userIDValue = generateCustomerIDValue(userIDValue);
+                System.out.println("Choose an existing file: ");
+                System.out.println("Format - 'filename.filetpye'");
+                System.out.print(": ");
+                String fileName = reader.nextLine();
+                userIDValue = generateCustomerIDValue(userIDValue, fileName);
                 
                 System.out.println(userIDValue);
 
-                File file = new File("csvtrial9.csv");
+                File file = new File(fileName);
 
                 try{
                     if(!file.exists()){
@@ -300,9 +308,9 @@ class CustomerSystem{
     *       ADDITIONAL METHODS MAY BE ADDED BELOW IF NECESSARY         * 
     *******************************************************************/
     
-    public static String generateCustomerIDValue(String NewIDString){
+    public static String generateCustomerIDValue(String NewIDString, String fileName){
         try {
-            File Files = new File("csvtrial9.csv");
+            File Files = new File(fileName);
             Scanner reader = new Scanner(Files);
             String data = "";
             int lineCounter = 0;
@@ -318,7 +326,6 @@ class CustomerSystem{
                     }
                 }
             }
-
             int line = lineCounter;
             line += 1;
             NewIDString = Integer.toString(line);
