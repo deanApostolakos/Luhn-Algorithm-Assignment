@@ -239,9 +239,6 @@ class CustomerSystem{
                 System.out.print("");
                 
                 String fileName = enterFileName + fileType;
-
-                
-                //int userIDValue = generateCustomerIDValue(userIDValue);
                 
                 File outFile = new File(fileName);
                 if (outFile.exists()){
@@ -249,7 +246,7 @@ class CustomerSystem{
                 }
                 else{
                     PrintWriter out = new PrintWriter(outFile);
-                    
+
                     // Prints info header
                     out.println("Customer ID|First Name|Last Name|City|Postal Code|Credit Card|");
                     // Prints values to file
@@ -257,6 +254,8 @@ class CustomerSystem{
                 
                     System.out.print("");
                     System.out.println("Done");
+                    System.out.print("Access File here: ");
+                    System.out.println("Working Directory = " + System.getProperty("user.dir"));
                     System.out.print("");
                     out.close();
                     reader.close();
@@ -265,13 +264,14 @@ class CustomerSystem{
             else if (newFileChoice.equals("n")){
                 System.out.println("");
                 System.out.println("Add to existing file");
-                System.out.println("Choose an existing file: ");
-                System.out.println("Format - 'filename.filetpye'");
+                System.out.println("To choose an existing file, ");
+                System.out.println("Either:");
+                System.out.println("Type the file name in the format - 'filename.filetpye'");
+                System.out.println("or,");
+                System.out.println("Drag and drop the chosen file from this list - " + System.getProperty("user.dir") + " - on the input line.");
                 System.out.print(": ");
                 String fileName = reader.nextLine();
                 userIDValue = generateCustomerIDValue(userIDValue, fileName);
-                
-                System.out.println(userIDValue);
 
                 File file = new File(fileName);
 
