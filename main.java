@@ -211,31 +211,51 @@ class CustomerSystem{
         System.out.print("y/n: ");
         String infoConfirmation = reader.nextLine();
 
+        // Assign user ID value
+        int userIDValue = 1;
+
         if (infoConfirmation.equals("y")){
 
             System.out.println("");
-            System.out.println("What type of file are you outputting? ");
-            System.out.println(".txt     or    .csv");
-            System.out.print("-");
-            String fileType = reader.nextLine();
-        
-            System.out.println("");
-            System.out.print("Enter File Name: ");
-            String fileName = reader.nextLine();
-            System.out.print("");
-        
-            //int userIDValue = generateCustomerIDValue(userIDValue);
+            System.out.println("Create new file?");
+            System.out.print("y/n: ");
+            String newFileChoice = reader.nextLine();
             
-            File outFile = new File(fileName + fileType);
-            PrintWriter out = new PrintWriter(outFile);
-        
-            // Prints values to file
-            out.println(firstNameOutput+"|"+lastNameOutput+"|"+cityOutput+"|"+postalCodeOutput+"|"+postalCodeOutput+"|"+creditCardOutput);
-        
+            if (newFileChoice.equals("y")){
+                System.out.println("");
+                System.out.println("What type of file are you outputting? ");
+                System.out.println(".txt     or    .csv");
+                System.out.print("-");
+                String fileType = reader.nextLine();
             
-            System.out.println("Done");
-            out.close(); // Important: don't forget to close!
-            reader.close();
+                System.out.println("");
+                System.out.print("Enter File Name: ");
+                String enterFileName = reader.nextLine();
+                System.out.print("");
+                
+                String fileName = enterFileName + fileType;
+                //int userIDValue = generateCustomerIDValue(userIDValue);
+                
+                File outFile = new File(fileName);
+                PrintWriter out = new PrintWriter(outFile);
+                
+                // Prints info header
+                out.println("Customer ID|First Name|Last Name|City|Postal Code|Credit Card|");
+                // Prints values to file
+                out.println(userIDValue+"|"+firstNameOutput+"|"+lastNameOutput+"|"+cityOutput+"|"+postalCodeOutput+"|"+postalCodeOutput+"|"+creditCardOutput);
+            
+                System.out.print("");
+                System.out.println("Done");
+                out.close();
+                reader.close();
+            }
+            else if (newFileChoice.equals("n")){
+                System.out.println("");
+                System.out.println("Add to existing file");
+                System.out.println("Choose existing file: ");
+
+            }
+            
         }
 
         else if (infoConfirmation.equals("n")){
@@ -245,7 +265,7 @@ class CustomerSystem{
             System.out.println("");
         }
 
-      }
+    }
     /*******************************************************************
     *       ADDITIONAL METHODS MAY BE ADDED BELOW IF NECESSARY         *
     *******************************************************************/
