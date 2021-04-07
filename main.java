@@ -212,12 +212,14 @@ class CustomerSystem{
         String infoConfirmation = reader.nextLine();
 
         // Assign user ID value
-        int userIDValue = 1;
+        String userIDValue = "1";
 
         if (infoConfirmation.equals("y")){
 
             System.out.println("");
             System.out.println("Create new file?");
+            System.out.println("y: Create new File");
+            System.out.println("n: Use Existing File");
             System.out.print("y/n: ");
             String newFileChoice = reader.nextLine();
             
@@ -242,10 +244,11 @@ class CustomerSystem{
                 // Prints info header
                 out.println("Customer ID|First Name|Last Name|City|Postal Code|Credit Card|");
                 // Prints values to file
-                out.println(userIDValue+"|"+firstNameOutput+"|"+lastNameOutput+"|"+cityOutput+"|"+postalCodeOutput+"|"+postalCodeOutput+"|"+creditCardOutput);
+                out.println(userIDValue+"|"+firstNameOutput+"|"+lastNameOutput+"|"+cityOutput+"|"+postalCodeOutput+"|"+creditCardOutput+"*");
             
                 System.out.print("");
                 System.out.println("Done");
+                System.out.print("");
                 out.close();
                 reader.close();
             }
@@ -253,6 +256,22 @@ class CustomerSystem{
                 System.out.println("");
                 System.out.println("Add to existing file");
                 System.out.println("Choose existing file: ");
+                String fileName = "csvtrial9.csv";
+                userIDValue = generateCustomerIDValue(userIDValue);
+                
+
+                System.out.println(userIDValue);
+
+                PrintWriter out = new PrintWriter(fileName);
+                
+                // Prints values to file
+                out.println(userIDValue+"|"+firstNameOutput+"|"+lastNameOutput+"|"+cityOutput+"|"+postalCodeOutput+"|"+creditCardOutput+"*");
+            
+                System.out.print("");
+                System.out.println("Done");
+                System.out.print("");
+                out.close();
+
 
             }
             
@@ -267,8 +286,39 @@ class CustomerSystem{
 
     }
     /*******************************************************************
-    *       ADDITIONAL METHODS MAY BE ADDED BELOW IF NECESSARY         *
+    *       ADDITIONAL METHODS MAY BE ADDED BELOW IF NECESSARY         * 
     *******************************************************************/
-    public static void generateCustomerIDValue(){
+    
+    public static String generateCustomerIDValue(String NewIDString){
+        try {
+
+            File Files = new File("csvtrial9.csv");
+            Scanner reader = new Scanner(Files);
+            String data = "";
+            int lineCounter = 0;
+            while (reader.hasNextLine()) {
+                data = reader.nextLine();
+                int len = data.length();
+                for (int i = 0; i < len; i++){
+                    if (data.charAt(i) == '*'){
+                        lineCounter += 1;
+                    }
+                    else{
+                        lineCounter += 0;
+                    }
+                }
+            }
+
+            int line = lineCounter;
+            line += 1;
+            NewIDString = Integer.toString(line);
+            
+            reader.close();
+            
+          } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+          }
+        return NewIDString;
     }
 }
