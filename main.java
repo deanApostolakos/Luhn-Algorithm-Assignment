@@ -3,6 +3,10 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.IOException;
+
 // More packages may be imported in the space below
 
 class CustomerSystem{
@@ -259,22 +263,29 @@ class CustomerSystem{
                 String fileName = "csvtrial9.csv";
                 userIDValue = generateCustomerIDValue(userIDValue);
                 
-
                 System.out.println(userIDValue);
 
-                PrintWriter out = new PrintWriter(fileName);
-                
-                // Prints values to file
-                out.println(userIDValue+"|"+firstNameOutput+"|"+lastNameOutput+"|"+cityOutput+"|"+postalCodeOutput+"|"+creditCardOutput+"*");
-            
-                System.out.print("");
-                System.out.println("Done");
-                System.out.print("");
-                out.close();
+                File file = new File("csvtrial9.csv");
 
+                try{
+                    if(!file.exists()){
+                        System.out.println("This file does not exist.");
+                        System.out.println("Choose an existing file or create a new file");
+                    }
 
+                    FileWriter fileWriter = new FileWriter(file, true);
+
+                    BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+                    bufferedWriter.write(userIDValue+"|"+firstNameOutput+"|"+lastNameOutput+"|"+cityOutput+"|"+postalCodeOutput+"|"+creditCardOutput+"*");
+                    bufferedWriter.newLine();
+                    bufferedWriter.close();
+
+                    System.out.println("Done");
+                } 
+                catch(IOException e) {
+                    System.out.println("Error!");
+                }
             }
-            
         }
 
         else if (infoConfirmation.equals("n")){
@@ -283,15 +294,14 @@ class CustomerSystem{
             System.out.println("Please re-input customer information");
             System.out.println("");
         }
-
     }
+
     /*******************************************************************
     *       ADDITIONAL METHODS MAY BE ADDED BELOW IF NECESSARY         * 
     *******************************************************************/
     
     public static String generateCustomerIDValue(String NewIDString){
         try {
-
             File Files = new File("csvtrial9.csv");
             Scanner reader = new Scanner(Files);
             String data = "";
