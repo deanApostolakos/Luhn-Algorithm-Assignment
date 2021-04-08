@@ -135,30 +135,43 @@ class CustomerSystem{
     * This method may also be broken down further depending on your algorithm
     */
     public static void validatePostalCode(String postalCode){
-        try {
+	try {
+	    //initialize the postal code file and scanner for file
             File postalCodeFile = new File("postal_codes.csv");
             Scanner reader = new Scanner(postalCodeFile);
+	    //creates empty variables with assigned data types	
             String data;
             String firstThree = "";
+	    //only looks at the first three inputs of the postal code you inputted
             postalCode = postalCode.substring(0, 3);
+	    //reads each line of the file
             while (reader.hasNextLine()) {
+		//data holds the string of what it is reading    
                 data = reader.nextLine();
+		//looks at the first three characters on that line in the file    
                 firstThree = data.substring(0, 3);
+		//if the users postal code matches one of the first three characters of the postal codes in the file   
                 if (postalCode.equals(firstThree)){
+		    //exits loop because there is a match
                     break;
                 }
             }
+	    //checks for match
             if (postalCode.equals(firstThree)){
+		    //postal code is verified
             }
             else if (!postalCode.equals(firstThree)){
+		//if the postal code does not match any in the file, this message is displayed:
                 System.out.println("This postal code is invalid, please enter customer information again.");
             }
+	    //if anything else happens, this message will be displayed:	
             else{
                 System.out.println("This postal code is invalid, please enter customer information again.");
             }
         } 
+	//if the file is not located:
         catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
+            System.out.println("An error occurred.");	
             e.printStackTrace();
         }
     }
@@ -169,43 +182,62 @@ class CustomerSystem{
     */
     public static void validateCreditCard(String creditCard){
         String StringreversedcreditCardindexs = "";
-        int sum = 0;
+	//Initializes several variables to be used in the method       
+	int sum = 0;
         int sum1 = 0;
         int sum2 = 0;
-            
+        
+	//finds how many characters are in the credit card and sets that amount to a variable    
         int len = creditCard.length();
+	//the for loop will loop until all characters have been searched starting from the last 
         for (int i = (len - 1); i >= 0; i--) {
-            creditCard = creditCard + (creditCard.charAt(i));
+		//since the loop is starting from the last character it is adding them to the string in reverse order
+        	creditCard = creditCard + (creditCard.charAt(i));
         }
-
+	//removes the non-reversed part of the string
         String reversedcreditCard = creditCard.substring(len, (len*2));
-            
+        
+	//finds how many characters are in the credit card and sets that amount to a variable       
         int len2 = reversedcreditCard.length();
+	//loops for how many characters there in the reversed string
         for (int j = 0 ; j <= (len2 - 1); j++) {
-            StringreversedcreditCardindexs = reversedcreditCard.substring(j, j + 1);
-            int IntegerreversedcreditCardindexs = Integer.parseInt(StringreversedcreditCardindexs);
-            if (j == 0 || j %2 == 0) {
-                sum1 = sum1 + IntegerreversedcreditCardindexs;
-            }
-            else if (j == 1|| j %2 == 1) {
-                IntegerreversedcreditCardindexs = IntegerreversedcreditCardindexs * 2;
-                if (IntegerreversedcreditCardindexs > 9) {
-                    sum2 = sum2 + ((IntegerreversedcreditCardindexs %10) + 1);
-                        
-                }
-                else if (IntegerreversedcreditCardindexs <= 9) {
-                    sum2 = sum2 + IntegerreversedcreditCardindexs;
-                }
-            }
+		//searches through each character using the index of the string
+        	StringreversedcreditCardindexs = reversedcreditCard.substring(j, j + 1);
+		//turns each character into a number so it can be compared to other numbers
+            	int IntegerreversedcreditCardindexs = Integer.parseInt(StringreversedcreditCardindexs);
+		//if the index is even, the digit is odd
+            	if (j == 0 || j %2 == 0) {
+			//adds to odd digit sum
+                	sum1 = sum1 + IntegerreversedcreditCardindexs;
+            	}
+		//if the index is odd, the digit is even
+            	else if (j == 1|| j %2 == 1) {
+			//doubles the number
+                	IntegerreversedcreditCardindexs = IntegerreversedcreditCardindexs * 2;
+			//if the number is greater than 9 once doubled
+                	if (IntegerreversedcreditCardindexs > 9) {
+				//adds the tens and ones column, then is added to even digit sum
+                    		sum2 = sum2 + ((IntegerreversedcreditCardindexs %10) + 1);
+                	}
+                	else if (IntegerreversedcreditCardindexs <= 9) {
+				//adds to even digit sum
+                    		sum2 = sum2 + IntegerreversedcreditCardindexs;
+                	}
+            	}
         }
+	//adds odd and even digit sums
         sum = sum1 + sum2;
+	//if the remainder of the sum ends in a 0 (the ones column has a 0), so the credit card is valid
         if (sum %10 == 0) {
+		//it is valid
         }
+	//if the remainder fo the sum does not end in a 0 (the ones column does not have a 0), so the credit card is not valid and this message is displayed:
         else if (sum %10 != 0) {
-            System.out.println("This credit card number is invalid, please enter customer information again.");
+            	System.out.println("This credit card number is invalid, please enter customer information again.");
         }
+	//if anything else happens, this message will be displayed:	    
         else{
-            System.out.println("This credit card number is invalid, please enter customer information again.");
+        	System.out.println("This credit card number is invalid, please enter customer information again.");
         }
     } 
 	
