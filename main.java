@@ -149,7 +149,6 @@ class CustomerSystem{
     */
    public static boolean validateCreditCard(String creditCard){
 	String StringreversedcreditCardindexs = "";
-	String creditCard = "";
 	int sum = 0;
 	int sum1 = 0;
 	int sum2 = 0;
@@ -158,7 +157,7 @@ class CustomerSystem{
         for (int i = (len - 1); i >= 0; i--) {
             creditCard = creditCard + (creditCard.charAt(i));
         }
-        String reversedcreditCard = creditCard.substring(9, 18);
+        String reversedcreditCard = creditCard.substring(len, (len*2));
 		
         int len2 = reversedcreditCard.length();
         for (int j = 0 ; j <= (len2 - 1); j++) {
@@ -185,6 +184,9 @@ class CustomerSystem{
         else if (sum %10 != 0) {
         	return false;
         }
+	else {
+		return false;
+	}
     }   
 	   
     public static void generateCustomerDataFile(String firstNameOutput, String lastNameOutput, String cityOutput, String postalCodeOutput, String creditCardOutput) throws FileNotFoundException{
