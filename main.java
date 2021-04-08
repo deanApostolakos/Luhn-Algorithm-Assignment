@@ -138,7 +138,7 @@ class CustomerSystem{
         try {
             File postalCodeFile = new File("postal_codes.csv");
             Scanner reader = new Scanner(postalCodeFile);
-            String data = "";
+            String data;
             String firstThree = "";
             postalCode = postalCode.substring(0, 3);
             while (reader.hasNextLine()) {
@@ -148,7 +148,12 @@ class CustomerSystem{
                     break;
                 }
             }
-            if (!postalCode.equals(firstThree)){
+            if (postalCode.equals(firstThree)){
+            }
+            else if (!postalCode.equals(firstThree)){
+                System.out.println("This postal code is invalid, please enter customer information again.");
+            }
+            else{
                 System.out.println("This postal code is invalid, please enter customer information again.");
             }
         } 
