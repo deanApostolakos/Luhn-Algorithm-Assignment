@@ -47,9 +47,10 @@ class CustomerSystem{
                 postalCode = enterCustomerInfo(postalCode);
                 creditCard = enterCustomerInfo(creditCard);
               
-                creditCardValidate = validateCreditCard(creditCard);
-                PostalCodeValidate = validatePostalCode(postalCode);
-		    
+                validateCreditCard(creditCard);
+                
+                validatePostalCode(postalCode);
+                
                 // Empty line for spacing between the menus
                 System.out.println("");
 
@@ -141,57 +142,75 @@ class CustomerSystem{
     * This method may also be broken down further depending on your algorithm
     */
     public static void validatePostalCode(String postalCode){
-	    
+        try {
+            File postalCodeFile = new File("postal_codes.csv");
+            Scanner reader = new Scanner(postalCodeFile);
+            String data = "";
+            String firstThree = "";
+            postalCode = postalCode.substring(0, 3);
+            while (reader.hasNextLine()) {
+                data = reader.nextLine();
+                firstThree = data.substring(0, 3);
+                if (postalCode.equals(firstThree)){
+                    break;
+                }
+            }
+            if (!postalCode.equals(firstThree)){
+                System.out.println("This postal code is invalid, please enter customer information again.");
+            }
+        } 
+        catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
     /*
     * This method may be edited to achieve the task however you like.
     * The method may not nesessarily be a void return type
     * This method may also be broken down further depending on your algorithm
     */
-   public static boolean validateCreditCard(String creditCard){
-	String StringreversedcreditCardindexs = "";
-	int sum = 0;
-	int sum1 = 0;
-	int sum2 = 0;
-	    
-	int len = creditCard.length();
+    public static void validateCreditCard(String creditCard){
+        String StringreversedcreditCardindexs = "";
+        int sum = 0;
+        int sum1 = 0;
+        int sum2 = 0;
+            
+        int len = creditCard.length();
         for (int i = (len - 1); i >= 0; i--) {
             creditCard = creditCard + (creditCard.charAt(i));
         }
+
         String reversedcreditCard = creditCard.substring(len, (len*2));
-		
+            
         int len2 = reversedcreditCard.length();
         for (int j = 0 ; j <= (len2 - 1); j++) {
             StringreversedcreditCardindexs = reversedcreditCard.substring(j, j + 1);
             int IntegerreversedcreditCardindexs = Integer.parseInt(StringreversedcreditCardindexs);
             if (j == 0 || j %2 == 0) {
-            	sum1 = sum1 + IntegerreversedcreditCardindexs;
+                sum1 = sum1 + IntegerreversedcreditCardindexs;
             }
             else if (j == 1|| j %2 == 1) {
-            	IntegerreversedcreditCardindexs = IntegerreversedcreditCardindexs * 2;
-            	if (IntegerreversedcreditCardindexs > 9) {
-            		sum2 = sum2 + ((IntegerreversedcreditCardindexs %10) + 1);
-            		
-            	}
-            	else if (IntegerreversedcreditCardindexs <= 9) {
-            		sum2 = sum2 + IntegerreversedcreditCardindexs;
-            	}
+                IntegerreversedcreditCardindexs = IntegerreversedcreditCardindexs * 2;
+                if (IntegerreversedcreditCardindexs > 9) {
+                    sum2 = sum2 + ((IntegerreversedcreditCardindexs %10) + 1);
+                        
+                }
+                else if (IntegerreversedcreditCardindexs <= 9) {
+                    sum2 = sum2 + IntegerreversedcreditCardindexs;
+                }
             }
         }
         sum = sum1 + sum2;
         if (sum %10 == 0) {
-        	return true;
         }
         else if (sum %10 != 0) {
-        	System.out.println("This credit card number is invalid, please enter customer information again.");
-		return false;
+            System.out.println("This credit card number is invalid, please enter customer information again.");
         }
-	else {
-		System.out.println("This credit card number is invalid, please enter customer information again.");
-		return false;
-	}
-    }   
-	   
+        else{
+            System.out.println("This credit card number is invalid, please enter customer information again.");
+        }
+    } 
+	
     public static void generateCustomerDataFile(String firstNameOutput, String lastNameOutput, String cityOutput, String postalCodeOutput, String creditCardOutput) throws FileNotFoundException{
     
         Scanner reader = new Scanner(System.in);
