@@ -86,39 +86,39 @@ class CustomerSystem{
     * The method may not nesessarily be a void return type
     * This method may also be broken down further depending on your algorithm
     */
-    public static String enterCustomerInfo(String variable) {
+    public static String enterCustomerInfo(String customerInfo) {
         // Initialize scanner
         Scanner reader = new Scanner(System.in);
 
         // Customer first name input
-        if (variable.equals("firstName")){
+        if (customerInfo.equals("firstName")){
             System.out.print("Customer First Name        : ");
             String fName = reader.nextLine();
-            variable = fName;
+            customerInfo = fName;
         }
         // Customer last name input
-        else if (variable.equals("lastName")){
+        else if (customerInfo.equals("lastName")){
             System.out.print("Customer Last Name         : ");
             String lName = reader.nextLine();
-            variable = lName;
+            customerInfo = lName;
         }
         // Customer city input
-        else if (variable.equals("city")){
+        else if (customerInfo.equals("city")){
             System.out.print("Customer City              : ");
             String cty = reader.nextLine();
-            variable = cty;
+            customerInfo = cty;
         }
         // Customer postal code input
-        else if (variable.equals("postalCode")){
+        else if (customerInfo.equals("postalCode")){
             System.out.print("Customer Postal Code       : ");
             String pCode = reader.nextLine();
-            variable = pCode;
+            customerInfo = pCode;
         }
         // Customer Credit card input
-        else if (variable.equals("creditCard")){
+        else if (customerInfo.equals("creditCard")){
             System.out.print("Customer Credit Card Number: ");
             String card = reader.nextLine();
-            variable = card;
+            customerInfo = card;
         }
         
         // The method doesn't work if the reader is closed. I don't know why. 
@@ -126,7 +126,7 @@ class CustomerSystem{
         //reader.close();
 
         // Return input to main
-        return variable;
+        return customerInfo;
     }
 
     /*
