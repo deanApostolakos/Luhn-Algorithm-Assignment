@@ -47,9 +47,9 @@ class CustomerSystem{
                 postalCode = enterCustomerInfo(postalCode);
                 creditCard = enterCustomerInfo(creditCard);
               
-                boolean creditCardValidate = false;
                 creditCardValidate = validateCreditCard(creditCard);
-                
+                PostalCodeValidate = validatePostalCode(postalCode);
+		    
                 // Empty line for spacing between the menus
                 System.out.println("");
 
@@ -140,7 +140,8 @@ class CustomerSystem{
     * The method may not nesessarily be a void return type
     * This method may also be broken down further depending on your algorithm
     */
-    public static void validatePostalCode(){
+    public static void validatePostalCode(String postalCode){
+	    
     }
     /*
     * This method may be edited to achieve the task however you like.
