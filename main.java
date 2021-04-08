@@ -182,9 +182,11 @@ class CustomerSystem{
         	return true;
         }
         else if (sum %10 != 0) {
-        	return false;
+        	System.out.println("This credit card number is invalid, please enter customer information again.");
+		return false;
         }
 	else {
+		System.out.println("This credit card number is invalid, please enter customer information again.");
 		return false;
 	}
     }   
