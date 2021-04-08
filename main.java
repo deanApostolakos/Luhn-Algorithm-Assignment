@@ -148,53 +148,42 @@ class CustomerSystem{
     * This method may also be broken down further depending on your algorithm
     */
    public static boolean validateCreditCard(String creditCard){
-        int sum = 0;
-        int sum1 = 0;
-        int sum2 = 0;
-        String reversedcreditCardoddindexs = "";
-
-        int len = creditCard.length();
+	String StringreversedcreditCardindexs = "";
+	String creditCard = "";
+	int sum = 0;
+	int sum1 = 0;
+	int sum2 = 0;
+	    
+	int len = creditCard.length();
         for (int i = (len - 1); i >= 0; i--) {
             creditCard = creditCard + (creditCard.charAt(i));
         }
         String reversedcreditCard = creditCard.substring(9, 18);
-
+		
         int len2 = reversedcreditCard.length();
-        for(int j = 0; j <= len2; j += 2){
-            reversedcreditCardoddindexs = reversedcreditCard.substring(j, j + 1);
-            int reversedcreditCardoddsum = Integer.parseInt(reversedcreditCardoddindexs);
-            sum1 = sum1 + reversedcreditCardoddsum;
-        }
-
-        int len3 = reversedcreditCard.length();
-        for(int k = 2; k <= len3; k += 2){
-            String reversedcreditCardevenindexs = reversedcreditCard.substring(k, k + 1);
-            int reversedcreditCardevensum = Integer.parseInt(reversedcreditCardevenindexs);
-            reversedcreditCardevensum = reversedcreditCardevensum * 2;
-            if (reversedcreditCardevensum > 9) {
-                String reversedcreditCardevensumSUB = Integer.toString(reversedcreditCardevensum);
-                String reversedcreditCardevensum1 = reversedcreditCardevensumSUB.substring(0, 1);
-                String reversedcreditCardevensum2 = reversedcreditCardevensumSUB.substring(1, 2);
-                int reversedcreditCardevensum11 = Integer.parseInt(reversedcreditCardevensum1);
-                int reversedcreditCardevensum22 = Integer.parseInt(reversedcreditCardevensum2);
-                reversedcreditCardevensum = reversedcreditCardevensum22 + reversedcreditCardevensum11;
-                sum2 = sum2 + reversedcreditCardevensum;
+        for (int j = 0 ; j <= (len2 - 1); j++) {
+            StringreversedcreditCardindexs = reversedcreditCard.substring(j, j + 1);
+            int IntegerreversedcreditCardindexs = Integer.parseInt(StringreversedcreditCardindexs);
+            if (j == 0 || j %2 == 0) {
+            	sum1 = sum1 + IntegerreversedcreditCardindexs;
             }
-            else {
-            sum2 = sum2 + reversedcreditCardevensum;
+            else if (j == 1|| j %2 == 1) {
+            	IntegerreversedcreditCardindexs = IntegerreversedcreditCardindexs * 2;
+            	if (IntegerreversedcreditCardindexs > 9) {
+            		sum2 = sum2 + ((IntegerreversedcreditCardindexs %10) + 1);
+            		
+            	}
+            	else if (IntegerreversedcreditCardindexs <= 9) {
+            		sum2 = sum2 + IntegerreversedcreditCardindexs;
+            	}
             }
         }
-	sum = sum1 + sum2;
-        System.out.println(sum);
-        String sumString = Integer.toString(sum); 
-        String summed = sumString.substring(1, 2);
-        int summedInt = Integer.parseInt(summed);
-
-        if (summedInt == 0){
-            return true;
+        sum = sum1 + sum2;
+        if (sum %10 == 0) {
+        	return true;
         }
-        else {
-            return false;
+        else if (sum %10 != 0) {
+        	return false;
         }
     }   
 	   
